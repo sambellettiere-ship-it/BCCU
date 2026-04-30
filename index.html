@@ -376,7 +376,7 @@
     <nav>
         <a href="#" class="logo" aria-label="The Boxcar On Prospect">🚂 The Boxcar</a>
         <div class="nav-links">
-            <a href="#story">Our Story</a>
+            <a href="#food-trucks">Food Trucks</a>
             <a href="#offerings">Offerings</a>
             <a href="#visit">Visit</a>
             <a href="#visit" class="btn btn-sm">Get Directions</a>
@@ -396,17 +396,10 @@
 
     <main class="container" style="padding-top: 10px;">
 
-        <section id="story" style="margin-bottom: 70px;">
-            <h2 class="section-title">Our Story</h2>
-            <p class="section-sub">A neighborhood bar with a one-way ticket to somewhere warmer.</p>
-            <div class="card" style="max-width: 780px; margin: 0 auto; text-align: center;">
-                <p style="font-size: 1.05rem; color: var(--text-light);">
-                    The Boxcar brings the spirit of vintage Pullman train cars to Champaign, IL — a place where tiki-inspired cocktails spark adventure, and familiar faces gather over neighborhood favorites.
-                </p>
-                <p style="margin-top: 16px; color: var(--accent-glow); font-style: italic;">
-                    Every drink is crafted for the journey ahead. 🍹
-                </p>
-            </div>
+        <section id="food-trucks" style="margin-bottom: 70px;">
+            <h2 class="section-title">Food Truck Schedule</h2>
+            <p class="section-sub">Fresh eats pulling up to the platform. Check back for updates.</p>
+            <div id="truck-schedule-grid" class="events-strip" style="max-width: 900px; margin: 0 auto;"></div>
         </section>
 
         <section id="offerings" style="margin-bottom: 70px;">
@@ -494,6 +487,36 @@
         </div>
         <p>&copy; 2026 The Boxcar On Prospect · 703 N Prospect Ave, Champaign, IL · 🚂 Every drink is crafted for the journey ahead.</p>
     </footer>
+
+    <script>
+        // ─── FOOD TRUCK SCHEDULE ────────────────────────────────────────────────
+        // Edit this array to update what's showing on the site.
+        // Fields: day, name, hours, icon (emoji), note (optional)
+        const foodTrucks = [
+            { day: "Friday",   name: "CHOP Truck",    hours: "5 PM – 9 PM",  icon: "🍔", note: "" },
+            { day: "Saturday", name: "CHOP Truck",    hours: "3 PM – 9 PM",  icon: "🍔", note: "" },
+            { day: "Sunday",   name: "CHOP Truck",    hours: "12 PM – 6 PM", icon: "🍔", note: "" },
+        ];
+        // ────────────────────────────────────────────────────────────────────────
+
+        const grid = document.getElementById('truck-schedule-grid');
+        if (foodTrucks.length === 0) {
+            grid.innerHTML = '<p style="text-align:center;color:var(--text-muted);grid-column:1/-1;">No trucks scheduled right now — check back soon!</p>';
+        } else {
+            foodTrucks.forEach(t => {
+                const pill = document.createElement('div');
+                pill.className = 'event-pill';
+                pill.innerHTML = `
+                    <span class="icon">${t.icon}</span>
+                    <span class="label">${t.name}</span>
+                    <span style="display:block;font-size:0.78rem;color:var(--accent-glow);margin-top:4px;">${t.day}</span>
+                    <span style="display:block;font-size:0.78rem;color:var(--text-muted);margin-top:2px;">${t.hours}</span>
+                    ${t.note ? `<span style="display:block;font-size:0.75rem;color:var(--accent-rust);margin-top:4px;font-style:italic;">${t.note}</span>` : ''}
+                `;
+                grid.appendChild(pill);
+            });
+        }
+    </script>
 
 </body>
 </html>
